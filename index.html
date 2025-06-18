@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Visual Guide to Understanding Bonds</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The infographic follows a linear, narrative structure designed for scrolling. It begins with a hook: the core definition of a bond vs. a stock. It then flows logically through five key sections: 1) Anatomy of a Bond (using large numbers and icons). 2) Lifecycle of a Bond (a visual flowchart). 3) The "Why" of Bonds (a donut chart showing portfolio roles). 4) A Tour of the Market (a comparative bar chart). 5) Understanding the Risks (a dynamic line chart for interest rate risk). This top-to-bottom flow was chosen to build knowledge progressively, making complex financial topics accessible for a novice audience in a single, engaging scroll. -->
+    <!-- Visualization & Content Choices: 1. Anatomy: (Goal: Inform) Big numbers and styled HTML for Principal/Coupon/Maturity. Justification: Clear, high-impact way to present core stats. Method: HTML/Tailwind. 2. Lifecycle: (Goal: Organize) A horizontal flowchart. Justification: Visually represents a process over time. Method: HTML/Tailwind. (CONFIRMING NO SVG/Mermaid). 3. Role in Portfolio: (Goal: Compare) A Donut Chart for Income/Preservation/Diversification. Justification: Shows composition of benefits effectively. Method: Chart.js/Canvas. 4. Bond Types: (Goal: Compare/Rank) A horizontal Bar Chart comparing risk levels of Treasuries, Munis, and Corporates. Justification: Ideal for comparing values across a few categories. Method: Chart.js/Canvas. 5. Interest Rate Risk: (Goal: Show Change/Relationship) A Line Chart showing the inverse price/rate relationship. Justification: Best for illustrating trends and relationships over a continuous variable. Method: Chart.js/Canvas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FDF4E3; /* Light Cream from Palette */
+        }
+        .text-coral { color: #FF6B6B; }
+        .text-teal { color: #4ECDC4; }
+        .text-navy { color: #1A535C; }
+        .bg-coral { background-color: #FF6B6B; }
+        .bg-teal { background-color: #4ECDC4; }
+        .bg-navy { background-color: #1A535C; }
+        .bg-yellow-accent { background-color: #FFE66D; }
+        h1, h2 {
+            font-weight: 900;
+            color: #1A535C; /* Navy */
+        }
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 3px solid #1A535C;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 45vh;
+        }
+         @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="text-navy">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <!-- Header -->
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl mb-4">THE INVESTOR'S GUIDE TO BONDS</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto">A simple visual journey into understanding one of finance's most essential tools.</p>
+        </header>
+
+        <!-- Section 1: What is a Bond? -->
+        <section class="my-16">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="card bg-teal text-white border-none text-center">
+                    <h2 class="text-3xl text-white">📈 STOCKS</h2>
+                    <p class="text-5xl my-4">🏢</p>
+                    <p class="font-bold text-2xl mb-2">You're an OWNER</p>
+                    <p>You buy a piece of the company, sharing in its potential growth and its risks.</p>
+                </div>
+                <div class="card bg-coral text-white border-none text-center">
+                    <h2 class="text-3xl text-white">💵 BONDS</h2>
+                    <p class="text-5xl my-4">🤝</p>
+                    <p class="font-bold text-2xl mb-2">You're a LENDER</p>
+                    <p>You loan money to an organization for a fixed return, making it a more predictable investment.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Anatomy of a Bond -->
+        <section class="my-20">
+            <h2 class="text-3xl md:text-4xl text-center mb-10">Anatomy of a Bond</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-2">Principal (Face Value)</h3>
+                    <p class="text-6xl font-black text-teal my-4">$1,000</p>
+                    <p>The initial loan amount the issuer promises to pay back when the bond's term ends.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-2">Coupon (Interest Rate)</h3>
+                    <p class="text-6xl font-black text-coral my-4">5%</p>
+                    <p>The annual interest paid to you, the lender. A 5% coupon on a $1,000 bond is $50 per year.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-2xl font-bold mb-2">Maturity Date</h3>
+                    <p class="text-6xl font-black text-yellow-500 my-4">10yr</p>
+                    <p>The "pay-back day" when the loan term ends and the principal is returned in full.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Lifecycle of a Bond -->
+        <section class="my-20">
+            <h2 class="text-3xl md:text-4xl text-center mb-12">The Lifecycle of a Bond</h2>
+            <div class="card">
+                 <p class="text-center text-lg mb-8">An investor's journey with a bond is a clear, predictable path from purchase to payday. This flowchart illustrates the simple process of buying a bond and holding it until the very end.</p>
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-4">
+                    <!-- Step 1 -->
+                    <div class="text-center w-full md:w-1/4">
+                        <div class="bg-yellow-accent text-navy w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 text-2xl font-black">1</div>
+                        <h3 class="font-bold text-xl">Purchase</h3>
+                        <p class="text-sm">You buy a new bond for its face value, typically $1,000.</p>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="w-full md:w-auto text-center text-4xl text-coral font-black transform md:rotate-0 rotate-90">→</div>
+                    <!-- Step 2 -->
+                    <div class="text-center w-full md:w-1/4">
+                        <div class="bg-yellow-accent text-navy w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 text-2xl font-black">2</div>
+                        <h3 class="font-bold text-xl">Collect Coupons</h3>
+                        <p class="text-sm">You receive regular interest payments (e.g., twice a year) for the entire bond term.</p>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="w-full md:w-auto text-center text-4xl text-coral font-black transform md:rotate-0 rotate-90">→</div>
+                    <!-- Step 3 -->
+                    <div class="text-center w-full md:w-1/4">
+                         <div class="bg-yellow-accent text-navy w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2 text-2xl font-black">3</div>
+                        <h3 class="font-bold text-xl">Maturity</h3>
+                        <p class="text-sm">On the final day, you receive your last coupon and your original $1,000 back.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Why Own Bonds? -->
+        <section class="my-20">
+            <h2 class="text-3xl md:text-4xl text-center mb-10">The Three BIG Roles of Bonds</h2>
+            <div class="card md:grid md:grid-cols-2 gap-8 items-center">
+                 <div>
+                    <h3 class="text-2xl font-bold mb-4">A Portfolio's Foundation</h3>
+                    <p class="text-navy mb-4">Bonds are essential for building a resilient investment strategy. They aren't just a "safer" option; they perform three distinct and powerful jobs that help balance risk and provide stability.</p>
+                    <p class="text-navy">This chart visualizes the core functions bonds play in a well-diversified portfolio, working together to create a smoother investment journey, especially during times of market volatility.</p>
+                </div>
+                <div class="chart-container mt-8 md:mt-0">
+                    <canvas id="rolesChart"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: Tour of the Market -->
+        <section class="my-20">
+            <h2 class="text-3xl md:text-4xl text-center mb-10">A Tour of the U.S. Bond Market</h2>
+            <div class="card md:grid md:grid-cols-2 gap-8 items-center">
+                <div class="chart-container order-2 md:order-1 mt-8 md:mt-0">
+                    <canvas id="marketChart"></canvas>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h3 class="text-2xl font-bold mb-4">Who Issues Bonds?</h3>
+                    <p class="text-navy mb-4">The U.S. bond market is dominated by three major issuers. Each type of bond offers a different trade-off between safety (credit risk) and potential reward (yield).</p>
+                    <p class="text-navy">This chart compares the general credit risk level of the three main bond categories. As you can see, the higher potential yield of corporate bonds comes with a higher level of risk.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Risks -->
+        <section class="my-20">
+            <h2 class="text-3xl md:text-4xl text-center mb-10">Understanding Bond Risks: The See-Saw Effect</h2>
+             <div class="card md:grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Interest Rate Risk</h3>
+                    <p class="text-navy mb-4">The most common risk is the inverse relationship between bond prices and market interest rates. When new bonds are issued at higher rates, your existing, lower-rate bond becomes less valuable.</p>
+                     <p class="text-navy mb-4">This chart demonstrates the "see-saw." As market interest rates rise, the price you could sell your bond for on the open market falls.</p>
+                     <label for="interestRateSlider" class="font-bold">Market Interest Rate: <span id="rateValue" class="text-coral">3%</span></label>
+                    <input type="range" id="interestRateSlider" min="1" max="7" value="3" step="0.5" class="w-full mt-2">
+                </div>
+                 <div class="chart-container mt-8 md:mt-0">
+                    <canvas id="riskChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="text-center p-8 bg-navy text-white mt-12">
+        <p>This infographic is for educational purposes only and not financial advice.</p>
+    </footer>
+
+    <script>
+        const chartColors = {
+            navy: '#1A535C',
+            teal: '#4ECDC4',
+            coral: '#FF6B6B',
+            yellow: '#FFE66D',
+            lightCream: '#FDF4E3'
+        };
+
+        // Function to wrap long labels
+        function wrapLabels(label, max_width) {
+            const words = label.split(' ');
+            let lines = [];
+            let current_line = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((current_line + ' ' + words[i]).length > max_width) {
+                    lines.push(current_line);
+                    current_line = words[i];
+                } else {
+                    current_line += ' ' + words[i];
+                }
+            }
+            lines.push(current_line);
+            return lines;
+        }
+
+        const sharedTooltipConfig = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+
+        // Chart 1: Roles Chart (Donut)
+        const rolesCtx = document.getElementById('rolesChart').getContext('2d');
+        new Chart(rolesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Predictable Income', 'Capital Preservation', 'Portfolio Diversifier'],
+                datasets: [{
+                    label: 'Role in Portfolio',
+                    data: [33.3, 33.3, 33.3],
+                    backgroundColor: [chartColors.coral, chartColors.teal, chartColors.yellow],
+                    borderColor: chartColors.lightCream,
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: chartColors.navy, font: { size: 14 } }
+                    },
+                    tooltip: sharedTooltipConfig.plugins.tooltip
+                }
+            }
+        });
+
+        // Chart 2: Market Chart (Bar)
+        const marketCtx = document.getElementById('marketChart').getContext('2d');
+        new Chart(marketCtx, {
+            type: 'bar',
+            data: {
+                labels: ['U.S. Treasury Bonds', 'Municipal Bonds', 'Corporate Bonds'],
+                datasets: [{
+                    label: 'General Credit Risk Level',
+                    data: [2, 4, 7], // Arbitrary values for visualization: Low, Medium, High
+                    backgroundColor: [chartColors.teal, chartColors.yellow, chartColors.coral],
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { display: false },
+                        ticks: {
+                            callback: function(value, index, values) {
+                                if (value === 2) return 'Lowest';
+                                if (value === 7) return 'Highest';
+                                return null;
+                            },
+                            color: chartColors.navy,
+                            font: { size: 14 }
+                        }
+                    },
+                    y: {
+                        ticks: { color: chartColors.navy, font: { size: 14, weight: 'bold' } }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: sharedTooltipConfig.plugins.tooltip
+                }
+            }
+        });
+
+        // Chart 3: Risk Chart (Line)
+        const riskCtx = document.getElementById('riskChart').getContext('2d');
+        const riskChart = new Chart(riskCtx, {
+            type: 'line',
+            data: {
+                labels: ['Bond Price'],
+                datasets: [{
+                    label: 'Your Bond Price',
+                    data: [1000],
+                    borderColor: chartColors.coral,
+                    backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    stepped: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 900,
+                        max: 1100,
+                        ticks: {
+                            callback: function(value) { return '$' + value; },
+                            color: chartColors.navy,
+                            font: { size: 14 }
+                        }
+                    },
+                    x: {
+                        ticks: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: sharedTooltipConfig.plugins.tooltip
+                }
+            }
+        });
+
+        const interestRateSlider = document.getElementById('interestRateSlider');
+        const rateValue = document.getElementById('rateValue');
+
+        interestRateSlider.addEventListener('input', (e) => {
+            const marketRate = parseFloat(e.target.value);
+            rateValue.textContent = marketRate.toFixed(1) + '%';
+            
+            // Your bond's coupon is fixed at 4% for this example
+            const yourCoupon = 4;
+            const priceDifference = (yourCoupon - marketRate) * 50; 
+            const newPrice = 1000 + priceDifference;
+
+            riskChart.data.datasets[0].data[0] = newPrice;
+            riskChart.update();
+        });
+
+    </script>
+</body>
+</html>
